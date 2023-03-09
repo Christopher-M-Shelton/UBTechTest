@@ -38,7 +38,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 ALLOWED_HOSTS = [f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com',
-                 '127.0.0.1']
+                 '127.0.0.1',
+                 '0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
