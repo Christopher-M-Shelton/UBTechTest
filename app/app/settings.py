@@ -151,3 +151,7 @@ MEDIA_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
 CORS_ORIGIN_WHITELIST = [
     'https://ubtechtest.herokuapp.com',
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://ubtechtest.herokuapp.com',
+]
