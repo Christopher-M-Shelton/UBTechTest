@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %} Books!{% endblock %}</title>
+    <style>
+      /* Style the navigation header */
+      .nav-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+      }
+
+      /* Style the navigation links */
+      .nav-link {
+        color: #fff;
+        margin-left: 20px;
+        text-decoration: none;
+      }
+
+      /* Style the container for the content */
+      .base-container {
+        margin: 20px;
+      }
+
+      /* Style the form input fields */
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+      }
+
+      /* Style the form submit button */
+      button[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Style the error message */
+      .error {
+        background-color: #ff9999;
+        color: #ff0000;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-header">
+      <div>
+        {% if user.is_authenticated %}
+        <span class="nav-link">Hello, {{ user.username }}</span>
+        <a href="{% url 'profile' %}" class="nav-link">My Files</a>
+        <a href="{% url 'fileupload' %}" class="nav-link">Upload</a>
+        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        <a href="{% url 'register' %}" class="nav-link">Register</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="base-container">
+      {% if error %}
+      <div class="error">{{ error }}</div>
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

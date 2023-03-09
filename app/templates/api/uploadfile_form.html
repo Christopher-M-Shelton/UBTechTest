@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% extends 'api/base.html' %}
+{% block content %}
+<html>
+  <head>
+    <title>Upload</title>
+    <style>
+      /* Style the container for the book list */
+      .book-list-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 20px;
+      }
+
+      /* Style the individual book cards */
+      .book-card {
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        padding: 20px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .book-card:hover {
+        box-shadow: 0px 0px 15px #bbb;
+        transform: translateY(-5px);
+      }
+
+      /* Style the book title */
+      .book-title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      /* Style the book author, publisher and date published */
+      .book-details {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      /* Style the upload file form */
+      .upload-form {
+        margin-top: 20px;
+      }
+
+      /* Style the upload file button */
+      .upload-form button {
+        background-color: #4285f4;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .upload-form button:hover {
+        background-color: #3367d6;
+      }
+
+      /* Style the form field labels */
+      .upload-form label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      /* Style the form field input */
+      .upload-form input[type="file"] {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      /* Style the error messages */
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form class="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="id_file">Upload CSV file:</label><br>
+        {{ form.file }}<br>
+        <button type="submit">Upload</button>
+        {% if form.errors %}
+          <div class="error-message">{{ form.errors.file }}</div>
+        {% endif %}
+      </form>
+
+      <div class="book-list-container">
+        {% for book in book_list %}
+        <div class="book-card">
+          <div class="book-title">{{ book.title }}</div>
+          <div class="book-details">Author: {{ book.author }}</div>
+          <div class="book-details">Publisher: {{ book.publisher }}</div>
+          <div class="book-details">Published: {{ book.datePublished }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% extends "api/base.html" %}
+{% block content %}
+<html>
+  <head>
+    <title>My Files</title>
+    <style>
+      .container {
+        margin: 50px auto;
+        max-width: 800px;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      /* Style the individual book cards */
+      .book-card {
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        padding: 20px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .book-card:hover {
+        box-shadow: 0px 0px 15px #bbb;
+        transform: translateY(-5px);
+      }
+
+      /* Style the book title */
+      .book-title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      /* Style the book author, publisher and date published */
+      .book-details {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      /* Add accordion styles */
+      .accordion {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+
+      .accordion__header {
+        background-color: #f9f9f9;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        text-align: left;
+      }
+
+      /* Add the arrow icon */
+        .accordion-header::before {
+          content: "\25B6";
+          font-size: 16px;
+          position: absolute;
+          top: 18px;
+          right: 10px;
+          transform: rotate(0deg);
+          transition: all 0.2s ease-in-out;
+        }
+
+      /* Rotate the arrow icon when accordion is active */
+      .active::before {
+        transform: rotate(90deg);
+      }
+
+      .accordion__panel {
+        display: none;
+        padding: 0 20px 20px;
+      }
+
+      .accordion__panel.active {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 20px;
+        display: none;
+        padding: 0 20px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {% for csv_file, books in books_by_csv_file.items %}
+        <div class="accordion">
+          <div class="accordion__header">{{ csv_file }}</div>
+          <div class="accordion__panel"style="display: grid;">
+            {% for book in books %}
+              <div class="book-card">
+                <div class="book-title">{{ book.title }}</div>
+                <div class="book-details">Author: {{ book.author }}</div>
+                <div class="book-details">Publisher: {{ book.publisher }}</div>
+                <div class="book-details">Published: {{ book.datePublished }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      // Add JS to handle accordion functionality
+      const accordionHeaders = document.querySelectorAll('.accordion__header');
+
+      for (let i = 0; i < accordionHeaders.length; i++) {
+        accordionHeaders[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          if (panel.style.display === 'block') {
+            panel.style.display = 'none';
+          } else {
+            panel.style.display = 'block';
+          }
+        });
+
+        // Set accordion panels to be collapsed by default
+        accordionHeaders[i].classList.remove('active');
+        accordionHeaders[i].nextElementSibling.style.display = 'none';
+      }
+    </script>
+  </body>
+</html>
+{% endblock %}

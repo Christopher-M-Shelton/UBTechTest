@@ -1,0 +1,34 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest-cov = "*"
+pytest = "*"
+aioresponses = "*"
+botocore = "*"
+pytest-asyncio = "*"
+pytest-aiohttp = "*"
+pytest-mock = "*"
+requests = "*"
+pdbpp = "*"
+moto = "*"
+docker = "*"
+mock = "*"
+
+[packages]
+boto3 = "*"
+jsonschema = "*"
+asyncio = "*"
+aiohttp = "*"
+newrelic = "*"
+aws-xray-sdk = "*"
+python-dateutil = "*"
+multipledispatch = "*"
+pyjwt = "*"
+cryptography = "*"
+structlog = "*"
+
+[requires]
+python_version = "3.9"
