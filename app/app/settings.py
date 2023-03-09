@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-*kmyz+#b!*@r__-7byhihri^il1g_*bmnw-*=7i8b=&07-4j!4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AWS_ACCESS_KEY_ID = 'AKIAYZPEE7G522M256MG'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 AWS_STORAGE_BUCKET_NAME = 'test-bok-bucket'
 AWS_S3_REGION_NAME = 'eu-west-2'
 AWS_DEFAULT_ACL = 'public-read'
