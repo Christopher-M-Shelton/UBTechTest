@@ -40,13 +40,12 @@ def upload_file(request):
                 + os.path.splitext(original_name)[1]
             )
 
-            path = default_storage.save(f'{MEDIA_ROOT}/{new_name}', uploaded_file)
+            path = default_storage.save(f"{MEDIA_ROOT}/{new_name}", uploaded_file)
             s3url = default_storage.url(path)
 
             owner_link(new_name, original_name, username)
-            uploaded_file.name = new_name
 
-            with default_storage.open(os.path.join(f'{MEDIA_ROOT}/{new_name}')) as file:
+            with default_storage.open(os.path.join(f"{MEDIA_ROOT}/{new_name}")) as file:
                 resp, status = BookCSVHandler(
                     file, username, s3url, trace_id=str(uuid.uuid4())
                 ).retrieve()
@@ -57,10 +56,7 @@ def upload_file(request):
             else:
                 data["book_list"] = resp
             data["form"] = UploadForm()
-            return render(
-                request,
-                "api/uploadfile_form.html", data
-            )
+            return render(request, "api/uploadfile_form.html", data)
     else:
         form = UploadForm()
     return render(request, "api/uploadfile_form.html", {"form": form})
@@ -69,16 +65,15 @@ def upload_file(request):
 @login_required(login_url="/account/login")
 def profile(request):
     username = request.user.username
-    books = Book.objects.filter(owner=username).order_by('csv_file')
+    books = Book.objects.filter(owner=username).order_by("csv_file")
 
     books_by_csv_file = {}
-    for csv_file, books_group in groupby(books, key=attrgetter('csv_file')):
+    for csv_file, books_group in groupby(books, key=attrgetter("csv_file")):
         books_by_csv_file[csv_file] = list(books_group)
-    print(books_by_csv_file)
-    return render(request, 'api/profile.html', {
-        'books_by_csv_file': books_by_csv_file,
-    })
-
-
-
-
+    return render(
+        request,
+        "api/profile.html",
+        {
+            "books_by_csv_file": books_by_csv_file,
+        },
+    )

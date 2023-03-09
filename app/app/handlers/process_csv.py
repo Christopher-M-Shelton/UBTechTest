@@ -38,15 +38,13 @@ class BookCSVHandler:
                         row["Date Published"], "%d/%m/%Y"
                     ).date(),
                     csv_file=os.path.basename(self.file.name),
-                    owner=self.username
+                    owner=self.username,
                 )
                 books.append(book)
 
             Book.objects.bulk_create(books)
         except ValidationError as e:
-            self.log.error(
-                "File failed validation", trace_id=self.trace_id, error=e
-            )
+            self.log.error("File failed validation", trace_id=self.trace_id, error=e)
             return e, HTTPStatus.BAD_REQUEST
         except Exception as e:
             self.log.error(

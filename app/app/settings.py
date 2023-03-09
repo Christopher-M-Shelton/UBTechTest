@@ -28,19 +28,21 @@ DEBUG = True
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-AWS_STORAGE_BUCKET_NAME = 'test-bok-bucket'
-AWS_S3_REGION_NAME = 'eu-west-2'
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_STORAGE_BUCKET_NAME = "test-bok-bucket"
+AWS_S3_REGION_NAME = "eu-west-2"
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
 # Tell Django to use the S3 storage backend for static and media files
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-ALLOWED_HOSTS = [f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com',
-                 '127.0.0.1',
-                 '0.0.0.0',
-                 'ubtechtest.herokuapp.com']
+ALLOWED_HOSTS = [
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com",
+    "127.0.0.1",
+    "0.0.0.0",
+    "ubtechtest.herokuapp.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -146,12 +148,12 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_ROOT = "files/"
-MEDIA_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 
 CORS_ORIGIN_WHITELIST = [
-    'https://ubtechtest.herokuapp.com',
+    "https://ubtechtest.herokuapp.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://ubtechtest.herokuapp.com',
+    "https://ubtechtest.herokuapp.com",
 ]
